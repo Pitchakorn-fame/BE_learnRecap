@@ -1,21 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import { IContent, ICreateContent } from "../entities/intex";
+import { IRepositoryContent } from ".";
 
-interface ICreateContent {
-  videoUrl: string;
-  comment: string;
-  rating: number;
-  videoTitle: string;
-  thumbnailUrl: string;
-  creatorName: string;
-  creatorUrl: string;
-  userId: string;
+export function newRepositoryContent(db: PrismaClient): IRepositoryContent {
+  return new RepositoryContent(db);
 }
-
-interface IContent extends ICreateContent {
-  id: number;
-}
-
-class RepositoryContent {
+class RepositoryContent implements IRepositoryContent {
   private db: PrismaClient;
 
   constructor(db: PrismaClient) {

@@ -1,4 +1,9 @@
-import { ICreateUser, IUser } from "../entities/intex";
+import {
+  IContent,
+  ICreateContent,
+  ICreateUser,
+  IUser,
+} from "../entities/intex";
 
 export interface IRepositoryUser {
   createUser(user: ICreateUser): Promise<IUser>;
@@ -8,4 +13,8 @@ export interface IRepositoryUser {
 export interface IRepositoryBlacklist {
   addToBlacklist(token: string): Promise<void>;
   isBlacklist(token: string): Promise<boolean>;
+}
+
+export interface IRepositoryContent {
+  createContent(content: ICreateContent): Promise<IContent>;
 }
