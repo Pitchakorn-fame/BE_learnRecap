@@ -7,7 +7,7 @@ export interface Payload {
   username: string;
 }
 
-const secret = process.env.JWT_SE_SECRET || "content-secrets";
+const secret = process.env.JWT_SECRET || "content-secrets";
 
 export function newJwt(data: Payload): string {
   return jwt.sign(data, secret, {
@@ -41,7 +41,7 @@ class MiddlewareHandler {
     res: Response,
     next: NextFunction
   ) {
-    const token = req.header("Authorization")?.replace("Bearer", "");
+    const token = req.header("Authorization")?.replace("Bearer ", "");
 
     try {
       if (!token) {
@@ -50,7 +50,7 @@ class MiddlewareHandler {
 
       const isBlacklisted = await this.repoBlacklist.isBlacklist(token);
 
-      if (!isBlacklisted) {
+      if (isBlacklisted) {
         return res.status(401).json({ status: "already logged out" }).end();
       }
 
