@@ -13,3 +13,13 @@ export interface IHandlerUser {
   login: HandlerFunc<AppRequest<Empty, ICreateUser>>;
   logout: HandlerFunc<JwtAuthRequest<Empty, Empty>>;
 }
+
+export interface WithContent {
+  videoUrl: string;
+  comment: string;
+  rating: number;
+}
+
+export interface IHandlerContent {
+  createContent: HandlerFunc<JwtAuthRequest<Empty, WithContent>>;
+}
